@@ -1,6 +1,8 @@
 ---
 title: 'Reproducible Research: Peer Assessment 1'
-output: html_document
+output: 
+html_document:
+    keep_md: yes
 ---
 
 ### Setting up Working Environment
@@ -151,16 +153,17 @@ head(weekendDf)
 
 **2. Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.**
 
-```{r}
+```{r,message=FALSE}
 stepsByIntervalWeekEnd <- weekendDf %>%
     group_by(interval, weekend) %>%
     summarise(averageSteps=mean(newSteps))
 head(stepsByIntervalWeekEnd)
 ```
 
-
-
 ```{r}
 ggplot(stepsByIntervalWeekEnd, aes(x=interval, y=averageSteps, color=`weekend`))+geom_line()+facet_wrap(~`weekend` , ncol = 1, nrow=2)+labs(title="Averages Steps on All Days During One Day Interval", x="Intervals", y="Average Steps Across All Days")
 ```
 
+**On average, steps taken on the weekend is higher then weekday. However, on weekdays steps between 8am to 10am is higher. We can attribute the surges could be weekday commuting to work.**
+
+### End of Project
